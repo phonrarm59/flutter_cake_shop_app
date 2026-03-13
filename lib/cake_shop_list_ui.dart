@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:flutter_cake_shop_app/cake_shop_detail_ui.dart';
 import 'package:flutter_cake_shop_app/models/case_shop.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -133,14 +134,6 @@ class _CakeShopListUiState extends State<CakeShopListUi> {
     ),
   ];
 
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,7 +180,13 @@ class _CakeShopListUiState extends State<CakeShopListUi> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     onTap: (){
-                      _makePhoneCall(cakeShops[index].phone!);
+                      //เปิดไปหน้า cakeshop_detail แแบย้อนกลับได้
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CakeShopDetailUi(cakeShop: cakeShops[index]),
+                        ),
+                      );
                     },
                     leading: ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(10.0),
